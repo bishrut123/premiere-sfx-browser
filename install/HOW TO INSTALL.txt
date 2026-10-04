@@ -1,0 +1,28 @@
+SFX Browser — a Premiere Pro panel for your own sound effects library
+Works with Premiere Pro 2022 or newer, on macOS and Windows.
+
+MAC
+  1. Double-click "install-mac.command".
+     If macOS says it can't be opened: open System Settings > Privacy & Security,
+     scroll down and click "Open Anyway", then double-click the file again.
+  2. Quit Premiere Pro (Cmd+Q) and reopen it.
+  3. Window > Extensions > SFX Browser.
+
+WINDOWS
+  1. Double-click "install-windows.bat".
+     If Windows shows "Windows protected your PC": click "More info" > "Run anyway".
+  2. Close Premiere Pro and reopen it.
+  3. Window > Extensions > SFX Browser.
+
+FIRST USE
+  Click the + button in the panel and choose your sound effects folder.
+
+UPDATING
+  Download the new version and run the installer again. Your library folders and
+  settings are kept.
+
+UNINSTALL
+  Mac:     delete  ~/Library/Application Support/Adobe/CEP/extensions/sfx-browser
+  Windows: delete  %APPDATA%\Adobe\CEP\extensions\sfx-browser
+
+More info: https://github.com/bishrut123/premiere-sfx-browser

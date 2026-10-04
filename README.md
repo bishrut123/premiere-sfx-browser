@@ -6,6 +6,28 @@ favorites, drag-to-timeline and click-to-add. No account, no limits. Read-only o
 Built as a **CEP** extension (HTML/JS + Node.js + ExtendScript). Works on Windows and macOS,
 Premiere Pro 2022 (22.0) and later.
 
+## Easy install
+
+1. Download **SFX-Browser.zip** from the
+   [latest release](https://github.com/bishrut123/premiere-sfx-browser/releases/latest) and unzip it.
+2. Run the installer:
+   - **Mac:** double-click `install-mac.command`. If macOS says it can't be opened, go to
+     System Settings > Privacy & Security and click **Open Anyway**, then run it again.
+   - **Windows:** double-click `install-windows.bat`. If you see "Windows protected your PC",
+     click **More info > Run anyway**.
+3. Restart Premiere Pro and open **Window > Extensions > SFX Browser**.
+4. Click **+** in the panel and choose your sound effects folder.
+
+Mac alternative without downloading anything (paste into Terminal):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/bishrut123/premiere-sfx-browser/main/install/install-mac.command | bash
+```
+
+To update, run the installer again with the new version. Your folders and settings are kept.
+
+The manual steps below do the same thing by hand.
+
 ## Folder layout
 
 ```
@@ -16,9 +38,11 @@ sfx-browser/
   js/main.js          panel logic (scan, search, preview, favorites, drag)
   jsx/host.jsx        ExtendScript running inside Premiere (import, insert)
   .debug              enables Chrome DevTools at http://localhost:8099
+  install/            double-click installers for macOS and Windows
+  tools/build-release.sh   builds dist/SFX-Browser.zip for a GitHub release
 ```
 
-## Install
+## Manual install
 
 The extension is unsigned, so you first allow unsigned extensions, then put the
 `sfx-browser` folder in your user CEP extensions folder.
