@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionList>
+  <Extension Id="com.local.sfxbrowser.panel">
+    <HostList>
+      <!-- Open http://localhost:8099 in Chrome while the panel is open to debug -->
+      <Host Name="PPRO" Port="8099" />
+    </HostList>
+  </Extension>
+</ExtensionList>

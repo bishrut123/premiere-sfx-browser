@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SFX Browser</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header id="toolbar">
+      <button id="btn-sidebar" class="icon-btn" title="Show/hide folders">&#9776;</button>
+      <input id="search" type="search" placeholder="Search sounds…" autocomplete="off" spellcheck="false" disabled>
+      <button id="btn-rescan" class="icon-btn" title="Rescan library" disabled>&#8635;</button>
+      <button id="btn-add-root" class="icon-btn" title="Add library folder" disabled>+</button>
+    </header>
+
+    <main id="body">
+      <nav id="sidebar"></nav>
+      <div id="list-wrap">
+        <section id="list"></section>
+        <div id="empty" hidden></div>
+      </div>
+    </main>
+
+    <div id="waveform" hidden></div>
+
+    <div id="actions">
+      <button id="btn-db-reset" class="icon-btn db-reset" title="Reset to 0 dB">&#8634;</button>
+      <label class="db-label" for="db" title="Volume of the clip when it lands on the timeline. Double-click to reset to 0 dB.">dB</label>
+      <input id="db" type="range" min="-50" max="6" step="1" value="0">
+      <span id="db-value">0 dB</span>
+      <button id="btn-add" class="add-btn" disabled title="Add at playhead (or double-click a sound)">Add</button>
+    </div>
+
+    <footer id="status">Loading…</footer>
+  </div>
+
+  <script>
+    // With --mixed-context, Node's require is on window (cep_node on some CEP versions).
+    window.nodeRequire = (window.cep_node && window.cep_node.require) || window.require || null;
+    if (!window.nodeRequire) {
+      document.getElementById('status').textContent = 'Node.js not available — check manifest CEFCommandLine';
+    }
+  </script>
+  <script src="js/store.js"></script>
+  <script src="js/library.js"></script>
+  <script src="js/aiff.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/waveform.js"></script>
+  <script src="js/list.js"></script>
+  <script src="js/tree.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
