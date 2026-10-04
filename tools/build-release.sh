@@ -12,7 +12,7 @@ rm -rf "$OUT"
 mkdir -p "$STAGE/sfx-browser"
 
 # Extension files: everything tracked except dev/repo-only files.
-git ls-files | grep -vE '^(install/|tools/|TESTING\.md$|\.debug$|\.git)' | while read -r f; do
+git ls-files | grep -vE '^(install/|tools/|docs/|TESTING\.md$|\.debug$|\.git)' | while read -r f; do
   mkdir -p "$STAGE/sfx-browser/$(dirname "$f")"
   cp "$f" "$STAGE/sfx-browser/$f"
 done
