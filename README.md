@@ -8,7 +8,11 @@ Premiere Pro 2022 (22.0) and later.
 
 ## Easy install
 
-▶ **[Watch the Mac install tutorial](docs/mac-tutorial.mp4)** (1½ min)
+
+
+https://github.com/user-attachments/assets/1791dd96-bb80-4d76-bad1-aa6167b6fa2f
+
+
 
 1. Download **SFX-Browser.zip** from the
    [latest release](https://github.com/bishrut123/premiere-sfx-browser/releases/latest) and unzip it.
