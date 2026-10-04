@@ -117,3 +117,7 @@ With the panel open, browse to `http://localhost:8099` in Chrome to get DevTools
 ## Uninstall
 
 Delete the `sfx-browser` folder (or link) from the extensions directory.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
