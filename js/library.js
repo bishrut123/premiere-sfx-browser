@@ -156,6 +156,36 @@ window.Library = (() => {
     return { changed, offline };
   }
 
+  // ---------- watching
+  // Calls onChange (debounced by the caller) when sound files or folders change inside any root.
+  // Uses the OS file-change notifications (recursive watching works on macOS and Windows).
+  let watchers = [];
+
+  function watch(onChange) {
+    unwatch();
+    for (const r of roots) {
+      if (!r.online) continue;
+      try {
+        const w = fs.watch(r.path, { recursive: true }, (event, filename) => {
+          if (filename) {
+            const base = path.basename(String(filename));
+            if (base.startsWith('.')) return;                     // hidden / macOS "._" files
+            const ext = path.extname(base).toLowerCase();
+            if (ext && !AUDIO_EXT.has(ext)) return;              // other files (images, partial downloads…)
+          }
+          onChange(r);
+        });
+        w.on('error', () => { try { w.close(); } catch (_) { /* ignore */ } });
+        watchers.push(w);
+      } catch (_) { /* drive can't be watched (e.g. some network drives): ↻ still works */ }
+    }
+  }
+
+  function unwatch() {
+    for (const w of watchers) { try { w.close(); } catch (_) { /* ignore */ } }
+    watchers = [];
+  }
+
   // ---------- index
 
   function rebuild() {
@@ -225,7 +255,7 @@ window.Library = (() => {
   }
 
   return {
-    load, addRoot, removeRoot, scanAll, fullPath, inFolder, search, tree, collator,
+    load, addRoot, removeRoot, scanAll, watch, fullPath, inFolder, search, tree, collator,
     get roots() { return roots; },
     get files() { return files; },
     get hasCache() { return Object.keys(cache.roots).length > 0; },

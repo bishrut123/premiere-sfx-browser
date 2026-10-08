@@ -23,7 +23,9 @@ Run on both macOS and Windows. Tick each item.
       containing both words. Esc clears search and returns to the selected folder.
 - [ ] Scroll quickly through thousands of rows: smooth, no blank gaps.
 - [ ] Close and reopen the panel: list appears immediately (from cache), then refreshes quietly.
-- [ ] Add a new .wav to the library in Finder/Explorer, click **↻**: it appears.
+- [ ] With the panel open, copy/download a new .wav into the library: within ~2 s it appears on its
+      own and the status says `Library updated — 1 new sound`. Renames and deletions update too.
+- [ ] **↻** still forces a full rescan.
 - [ ] Try adding a subfolder of an existing root: rejected with a message.
 - [ ] Hover the root, click **×**, then **Remove?**: root disappears; library files untouched.
 - [ ] Unplug/unmount the library drive and reopen the panel: root shows `(offline)` in red,

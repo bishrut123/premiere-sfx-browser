@@ -45,6 +45,7 @@ const tree = new FolderTree($('sidebar'), {
   },
   onRemoveRoot: async (rootPath) => {
     await Library.removeRoot(rootPath);
+    Library.watch(onLibraryChange);
     refreshAll(true);
     setStatus('Removed from panel — your files were not touched');
   },
@@ -172,26 +173,52 @@ function refreshAll(resetScroll) {
 // --- Scanning
 let scanning = false;
 
-async function rescan() {
-  if (scanning || !Library.roots.length) return;
+let rescanAgain = false;   // a change arrived while scanning: scan once more afterwards
+let lastScan = 0;
+
+// quiet: automatic refresh (file watcher / panel focus) — no "Scanning…" messages,
+// only a short note if something actually changed.
+async function rescan({ quiet = false } = {}) {
+  if (!Library.roots.length) return;
+  if (scanning) { rescanAgain = true; return; }
   scanning = true;
+  const before = Library.files.length;
   $('btn-rescan').classList.add('spinning');
-  setStatus('Scanning library…');
+  if (!quiet) setStatus('Scanning library…');
   try {
-    const { changed, offline } = await Library.scanAll((n) => setStatus(`Scanning… ${fmt(n)} files`));
+    const { changed, offline } = await Library.scanAll((n) => { if (!quiet) setStatus(`Scanning… ${fmt(n)} files`); });
     scanning = false;
+    lastScan = Date.now();
     if (changed) refreshAll(false);
-    else { tree.render(Library.tree(), Library.files.length); showList(false); }
+    else if (!quiet) { tree.render(Library.tree(), Library.files.length); showList(false); }
     if (offline.length) {
       setStatus(`Not connected: ${offline.join(', ')} — showing last scan`, true);
+    } else if (quiet && changed) {
+      const diff = Library.files.length - before;
+      setStatus(diff > 0 ? `Library updated — ${fmt(diff)} new sound${diff === 1 ? '' : 's'}`
+        : `Library updated — ${fmt(Library.files.length)} sounds`);
     }
   } catch (e) {
     scanning = false;
     setStatus('Scan failed: ' + e.message, true);
   } finally {
     $('btn-rescan').classList.remove('spinning');
+    Library.watch(onLibraryChange); // (re)attach: picks up added/removed roots and reconnected drives
+    if (rescanAgain) { rescanAgain = false; rescan({ quiet: true }); }
   }
 }
+
+// New/renamed/deleted sounds: wait until things settle (downloads, copying many files), then refresh.
+let changeTimer = null;
+function onLibraryChange() {
+  clearTimeout(changeTimer);
+  changeTimer = setTimeout(() => rescan({ quiet: true }), 1500);
+}
+
+// Fallback for drives that can't be watched: refresh when you come back to the panel.
+window.addEventListener('focus', () => {
+  if (Date.now() - lastScan > 30000) rescan({ quiet: true });
+});
 
 // --- dB level applied to clips as they land on the timeline (clip Volume, −50 … +6 dB)
 const dbEl = $('db');
