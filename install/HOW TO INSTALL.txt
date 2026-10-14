@@ -9,6 +9,8 @@ MAC
   3. Window > Extensions > SFX Browser.
 
 WINDOWS
+  0. Extract the zip first: right-click SFX-Browser.zip > "Extract All..." and open the
+     extracted folder. (Opening the zip and double-clicking inside it is not extracting.)
   1. Double-click "install-windows.bat".
      If Windows shows "Windows protected your PC": click "More info" > "Run anyway".
   2. Close Premiere Pro and reopen it.

@@ -19,8 +19,9 @@ https://github.com/user-attachments/assets/1791dd96-bb80-4d76-bad1-aa6167b6fa2f
 2. Run the installer:
    - **Mac:** double-click `install-mac.command`. If macOS says it can't be opened, go to
      System Settings > Privacy & Security and click **Open Anyway**, then run it again.
-   - **Windows:** double-click `install-windows.bat`. If you see "Windows protected your PC",
-     click **More info > Run anyway**.
+   - **Windows:** right-click the zip > **Extract All…**, open the extracted folder and
+     double-click `install-windows.bat`. If you see "Windows protected your PC", click
+     **More info > Run anyway**. (If it's run from inside the zip, it downloads the files itself.)
 3. Restart Premiere Pro and open **Window > Extensions > SFX Browser**.
 4. Click **+** in the panel and choose your sound effects folder.
 
